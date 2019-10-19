@@ -6,7 +6,10 @@ const {
   GraphQLList
 } = require("graphql");
 
-const { getTwitterUser } = require("../model/TwitterUser");
+const {
+  getTwitterUser,
+  getTwitterUserFollowers
+} = require("../model/TwitterUser");
 
 const TwitterUserType = new GraphQLObjectType({
   name: "TwitterUser",
@@ -14,7 +17,15 @@ const TwitterUserType = new GraphQLObjectType({
     name: { type: GraphQLString },
     screen_name: { type: GraphQLString },
     description: { type: GraphQLString },
-    followers_count: { type: GraphQLInt }
+    followers_count: { type: GraphQLInt },
+    followers: {
+      type: new GraphQLList(TwitterUserType),
+      resolve(root, args) {
+        return getTwitterUserFollowers(root.screen_name).then(
+          data => data.followers
+        );
+      }
+    }
   })
 });
 
