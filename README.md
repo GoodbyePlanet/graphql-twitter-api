@@ -24,7 +24,7 @@ ACCESS_TOKEN_SECRET=<access_token_secret>
 
 ```
 {
-  twitter_user(screen_name: "Ognjetina") {
+  twitter_user(screen_name: "Nemanjas_Vasic") {
     name
     screen_name
     description
@@ -41,6 +41,60 @@ ACCESS_TOKEN_SECRET=<access_token_secret>
       text
       retweets_count
       likes
+    }
+  }
+}
+```
+
+### Output example
+
+```
+{
+  "data": {
+    "twitter_user": {
+      "name": "Nemanjas",
+      "screen_name": "Nemanjas_Vasic",
+      "description": "Software developer @ codecentric\n| labs-01 team",
+      "followers_count": 25,
+      "friends_count": 33,
+      "friends": [
+        {
+          "screen_name": "djovic82"
+        },
+        {
+          "screen_name": "silveira_bells"
+        },
+        {
+          "screen_name": "kll"
+        },
+        ...
+      ],
+      "followers": [
+        {
+          "screen_name": "djovic82"
+        },
+        {
+          "screen_name": "kll"
+        },
+        {
+          "screen_name": "marmureanuweb"
+        },
+        ...
+      ],
+      "tweets": [
+        {
+          "created_at": "Sun Nov 03 19:11:35 +0000 2019",
+          "text": "If you want to try GrahpQL and how it works with a real database and not with mock and hardcoded data but you don't… https://t.co/p1wBAaKOKA",
+          "retweets_count": 0,
+          "likes": 8
+        },
+        {
+          "created_at": "Sat Oct 05 13:14:36 +0000 2019",
+          "text": "I just published Handle authentication using Passport.js in NODEJS https://t.co/iuC7HOWg3l",
+          "retweets_count": 0,
+          "likes": 5
+        }
+      ]
     }
   }
 }
