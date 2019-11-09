@@ -18,7 +18,7 @@ const TwitterUserType = new GraphQLObjectType({
     screen_name: { type: GraphQLString },
     description: { type: GraphQLString },
     followers_count: { type: GraphQLInt },
-    followers: {
+    following: {
       type: new GraphQLList(TwitterUserType),
       resolve(root, args) {
         return getTwitterUserFollowers(root.screen_name).then(
