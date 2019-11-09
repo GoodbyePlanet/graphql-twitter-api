@@ -1,6 +1,6 @@
 # graphql-twitter-api
 
-This is a simple example of using GraphQL to list Twitter User by providing User `screen_name`
+This is a simple example of using GraphQL to get Twitter User and User details by providing Twitter `screen_name`.
 
 ### How to start the application
 
