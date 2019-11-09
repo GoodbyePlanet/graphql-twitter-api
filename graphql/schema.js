@@ -7,10 +7,10 @@ const {
 } = require("graphql");
 
 const {
-  getTwitterUser,
-  getTwitterUserFriends,
-  getTwitterUserFollowers,
-  getTwitterUserTweets
+  getUser,
+  getUserFriends,
+  getUserFollowers,
+  getUserTweets
 } = require("../model/TwitterUser");
 
 const TwitterUser = new GraphQLObjectType({
@@ -23,24 +23,20 @@ const TwitterUser = new GraphQLObjectType({
     friends_count: { type: GraphQLInt },
     tweets: {
       type: new GraphQLList(Tweet),
-      resolve(root, args) {
-        return getTwitterUserTweets(root.screen_name).then(data => data);
+      resolve(root) {
+        return getUserTweets(root.screen_name);
       }
     },
     friends: {
       type: new GraphQLList(TwitterUser),
-      resolve(root, args) {
-        return getTwitterUserFriends(root.screen_name).then(
-          data => data.friends
-        );
+      resolve(root) {
+        return getUserFriends(root.screen_name).then(data => data.friends);
       }
     },
     followers: {
       type: new GraphQLList(TwitterUser),
-      resolve(root, args) {
-        return getTwitterUserFollowers(root.screen_name).then(
-          data => data.followers
-        );
+      resolve(root) {
+        return getUserFollowers(root.screen_name).then(data => data.followers);
       }
     }
   })
@@ -63,7 +59,7 @@ const RootQuery = new GraphQLObjectType({
       type: TwitterUser,
       args: { screen_name: { type: GraphQLString } },
       resolve(_, args) {
-        return getTwitterUser(args.screen_name).then(data => data);
+        return getUser(args.screen_name);
       }
     }
   }
