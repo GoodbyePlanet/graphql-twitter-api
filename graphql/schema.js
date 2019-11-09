@@ -8,7 +8,9 @@ const {
 
 const {
   getTwitterUser,
-  getTwitterUserFriends
+  getTwitterUserFriends,
+  getTwitterUserFollowers,
+  getTwitterUserTweets
 } = require("../model/TwitterUser");
 
 const TwitterUser = new GraphQLObjectType({
@@ -18,14 +20,39 @@ const TwitterUser = new GraphQLObjectType({
     screen_name: { type: GraphQLString },
     description: { type: GraphQLString },
     followers_count: { type: GraphQLInt },
+    friends_count: { type: GraphQLInt },
+    tweets: {
+      type: new GraphQLList(Tweet),
+      resolve(root, args) {
+        return getTwitterUserTweets(root.screen_name).then(data => data);
+      }
+    },
     friends: {
       type: new GraphQLList(TwitterUser),
       resolve(root, args) {
         return getTwitterUserFriends(root.screen_name).then(
+          data => data.friends
+        );
+      }
+    },
+    followers: {
+      type: new GraphQLList(TwitterUser),
+      resolve(root, args) {
+        return getTwitterUserFollowers(root.screen_name).then(
           data => data.followers
         );
       }
     }
+  })
+});
+
+const Tweet = new GraphQLObjectType({
+  name: "Tweet",
+  fields: () => ({
+    created_at: { type: GraphQLString },
+    text: { type: GraphQLString },
+    retweets_count: { type: GraphQLInt },
+    likes: { type: GraphQLInt }
   })
 });
 
