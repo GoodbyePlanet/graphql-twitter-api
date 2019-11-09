@@ -12,7 +12,7 @@ const getTwitterUser = screen_name => {
     }));
 };
 
-const getTwitterUserFollowers = screen_name => {
+const getTwitterUserFriends = screen_name => {
   return twit
     .get("friends/list", { screen_name: screen_name })
     .catch(err => console.log("error", err))
@@ -21,5 +21,5 @@ const getTwitterUserFollowers = screen_name => {
 
 module.exports = {
   getTwitterUser,
-  getTwitterUserFollowers
+  getTwitterUserFriends
 };
