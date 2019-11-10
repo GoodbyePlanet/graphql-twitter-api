@@ -3,7 +3,7 @@ const twit = require("../config/twit");
 const getUser = screen_name => {
   return twit
     .get("users/lookup", { screen_name })
-    .then(({ data }) => ({
+    .then(({ data: { s } }) => ({
       name: data[0].name,
       screen_name: data[0].screen_name,
       description: data[0].description,
@@ -43,7 +43,7 @@ const getUserTweets = screen_name => {
 
 const handleError = error => {
   console.log("An error occured", error);
-  return new Error("Whooops!", error);
+  throw new Error("Whooops!", error);
 };
 
 module.exports = {
