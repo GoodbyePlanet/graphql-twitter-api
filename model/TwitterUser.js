@@ -3,7 +3,7 @@ const twit = require("../config/twit");
 const getUser = screen_name => {
   return twit
     .get("users/lookup", { screen_name })
-    .catch(err => console.log("error", err))
+    .catch(err => handleError(err))
     .then(({ data }) => ({
       name: data[0].name,
       screen_name: data[0].screen_name,
@@ -16,21 +16,21 @@ const getUser = screen_name => {
 const getUserFriends = screen_name => {
   return twit
     .get("friends/list", { screen_name })
-    .catch(err => console.log("error", err))
+    .catch(err => handleError(err))
     .then(({ data: { users: friends } }) => ({ friends }));
 };
 
 const getUserFollowers = screen_name => {
   return twit
     .get("followers/list", { screen_name })
-    .catch(err => console.log("error", err))
+    .catch(err => handleError(err))
     .then(({ data: { users: followers } }) => ({ followers }));
 };
 
 const getUserTweets = screen_name => {
   return twit
     .get("statuses/user_timeline", { screen_name })
-    .catch(err => console.log("error", err))
+    .catch(err => handleError(err))
     .then(({ data }) => {
       return data.map(tweet => ({
         created_at: tweet.created_at,
@@ -39,6 +39,10 @@ const getUserTweets = screen_name => {
         likes: tweet.favorite_count
       }));
     });
+};
+
+const handleError = error => {
+  console.log("An error occured", error);
 };
 
 module.exports = {
