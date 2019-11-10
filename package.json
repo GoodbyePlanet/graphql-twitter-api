@@ -14,6 +14,7 @@
     "express": "^4.17.1",
     "express-graphql": "^0.9.0",
     "graphql": "^14.5.8",
+    "graphql-errors": "^2.1.0",
     "nodemon": "^1.19.4",
     "twit": "^2.2.11"
   },
