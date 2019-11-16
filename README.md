@@ -46,6 +46,15 @@ ACCESS_TOKEN_SECRET=<access_token_secret>
 }
 ```
 
+```
+{
+  mostLikedTweet(screen_name: "Nemanjas_Vasic") {
+    tweet_text
+    likes
+  }
+}
+```
+
 ### Output example
 
 ```
@@ -95,6 +104,17 @@ ACCESS_TOKEN_SECRET=<access_token_secret>
           "likes": 5
         }
       ]
+    }
+  }
+}
+```
+
+```
+{
+  "data": {
+    "mostLikedTweet": {
+      "tweet_text": "If you want to try GrahpQL and how it works with a real database and not with mock and hardcoded data but you don't… https://t.co/p1wBAaKOKA",
+      "likes": 8
     }
   }
 }
