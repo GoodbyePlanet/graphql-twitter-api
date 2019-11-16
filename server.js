@@ -4,7 +4,11 @@ const schema = require("./graphql/schema");
 const { maskErrors } = require("graphql-errors");
 const { PORT } = require("./config");
 
+const { getMostLikedTweet } = require("./model/TwitterUser");
+
 const app = express();
+
+getMostLikedTweet("Nemanjas_Vasic");
 
 maskErrors(schema);
 

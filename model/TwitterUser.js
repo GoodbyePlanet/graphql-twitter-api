@@ -41,6 +41,15 @@ const getUserTweets = screen_name => {
     .catch(err => handleError(err));
 };
 
+const getMostLikedTweet = async screen_name => {
+  return await getUserTweets(screen_name)
+    .map(({ text, likes }) => ({
+      tweet_text: text,
+      likes
+    }))
+    .reduce((prev, current) => (prev.likes > current.likes ? prev : current));
+};
+
 const handleError = error => {
   console.log("An error occured", error);
   throw new Error("Whooops!", error);
@@ -50,5 +59,6 @@ module.exports = {
   getUser,
   getUserFriends,
   getUserFollowers,
-  getUserTweets
+  getUserTweets,
+  getMostLikedTweet
 };

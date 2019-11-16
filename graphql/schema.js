@@ -10,7 +10,8 @@ const {
   getUser,
   getUserFriends,
   getUserFollowers,
-  getUserTweets
+  getUserTweets,
+  getMostLikedTweet
 } = require("../model/TwitterUser");
 
 const TwitterUser = new GraphQLObjectType({
@@ -52,6 +53,14 @@ const Tweet = new GraphQLObjectType({
   })
 });
 
+const FavoriteTweet = new GraphQLObjectType({
+  name: "FavoriteTweet",
+  fields: () => ({
+    tweet_text: { type: GraphQLString },
+    likes: { type: GraphQLInt }
+  })
+});
+
 const RootQuery = new GraphQLObjectType({
   name: "RootQuery",
   fields: {
@@ -60,6 +69,13 @@ const RootQuery = new GraphQLObjectType({
       args: { screen_name: { type: GraphQLString } },
       resolve(_, args) {
         return getUser(args.screen_name);
+      }
+    },
+    mostLikedTweet: {
+      type: FavoriteTweet,
+      args: { screen_name: { type: GraphQLString } },
+      resolve(_, args) {
+        return getMostLikedTweet(args.screen_name);
       }
     }
   }
