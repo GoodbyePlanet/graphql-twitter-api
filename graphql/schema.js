@@ -42,14 +42,22 @@ const TwitterUser = new GraphQLObjectType({
           description: "Defines number of tweets to be returned by server"
         }
       },
-      resolve(root, args) {
-        return getUserTweets(root.screen_name, args.limit);
+      resolve(root, { limit }) {
+        return getUserTweets(root.screen_name, limit);
       }
     },
     friends: {
       type: new GraphQLList(TwitterUser),
-      resolve(root) {
-        return getUserFriends(root.screen_name).then(data => data.friends);
+      args: {
+        limit: {
+          type: GraphQLInt,
+          description: "Number of TwitterUser friends to be returned by server"
+        }
+      },
+      resolve(root, { limit }) {
+        return getUserFriends(root.screen_name, limit).then(
+          data => data.friends
+        );
       }
     },
     followers: {

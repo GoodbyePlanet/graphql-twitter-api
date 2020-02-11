@@ -13,9 +13,9 @@ const getUser = screen_name => {
     .catch(err => handleError(err));
 };
 
-const getUserFriends = screen_name => {
+const getUserFriends = (screen_name, limit) => {
   return twit
-    .get("friends/list", { screen_name })
+    .get("friends/list", { screen_name, count: limit })
     .then(({ data: { users: friends } }) => ({ friends }))
     .catch(err => handleError(err));
 };
