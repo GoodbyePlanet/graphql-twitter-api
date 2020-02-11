@@ -16,15 +16,32 @@ const {
 
 const TwitterUser = new GraphQLObjectType({
   name: "TwitterUser",
+  description:
+    "TwitterUser is type that describes User and its fields and fields resolvers",
   fields: () => ({
     name: { type: GraphQLString },
-    screen_name: { type: GraphQLString },
+    screen_name: {
+      type: GraphQLString,
+      description:
+        "TwitterUser screen name is present as part of twitter base url (e.g. twitter.com/screen_name)"
+    },
     description: { type: GraphQLString },
-    followers_count: { type: GraphQLInt },
-    friends_count: { type: GraphQLInt },
+    followers_count: {
+      type: GraphQLInt,
+      description: "Number of User followers"
+    },
+    friends_count: {
+      type: GraphQLInt,
+      description: "Number of users that TwitterUser follows"
+    },
     tweets: {
       type: new GraphQLList(Tweet),
-      args: { limit: { type: GraphQLInt } },
+      args: {
+        limit: {
+          type: GraphQLInt,
+          description: "Defines number of tweets to be returned by server"
+        }
+      },
       resolve(root, args) {
         return getUserTweets(root.screen_name, args.limit);
       }
@@ -64,6 +81,7 @@ const FavoriteTweet = new GraphQLObjectType({
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQuery",
+  description: "Root Query and its fields",
   fields: {
     twitter_user: {
       type: TwitterUser,
