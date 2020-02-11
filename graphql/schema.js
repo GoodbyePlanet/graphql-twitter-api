@@ -24,8 +24,9 @@ const TwitterUser = new GraphQLObjectType({
     friends_count: { type: GraphQLInt },
     tweets: {
       type: new GraphQLList(Tweet),
-      resolve(root) {
-        return getUserTweets(root.screen_name);
+      args: { limit: { type: GraphQLInt } },
+      resolve(root, args) {
+        return getUserTweets(root.screen_name, args.limit);
       }
     },
     friends: {

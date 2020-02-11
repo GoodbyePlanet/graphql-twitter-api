@@ -27,9 +27,9 @@ const getUserFollowers = screen_name => {
     .catch(err => handleError(err));
 };
 
-const getUserTweets = screen_name => {
+const getUserTweets = (screen_name, limit) => {
   return twit
-    .get("statuses/user_timeline", { screen_name })
+    .get("statuses/user_timeline", { screen_name, count: limit })
     .then(({ data }) => {
       return data.map(tweet => ({
         created_at: tweet.created_at,
