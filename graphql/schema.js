@@ -62,8 +62,17 @@ const TwitterUser = new GraphQLObjectType({
     },
     followers: {
       type: new GraphQLList(TwitterUser),
-      resolve(root) {
-        return getUserFollowers(root.screen_name).then(data => data.followers);
+      args: {
+        limit: {
+          type: GraphQLInt,
+          description:
+            "Number of TwitterUser followers to be returned by server"
+        }
+      },
+      resolve(root, { limit }) {
+        return getUserFollowers(root.screen_name, limit).then(
+          data => data.followers
+        );
       }
     }
   })

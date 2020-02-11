@@ -20,9 +20,9 @@ const getUserFriends = (screen_name, limit) => {
     .catch(err => handleError(err));
 };
 
-const getUserFollowers = screen_name => {
+const getUserFollowers = (screen_name, limit) => {
   return twit
-    .get("followers/list", { screen_name })
+    .get("followers/list", { screen_name, count: limit })
     .then(({ data: { users: followers } }) => ({ followers }))
     .catch(err => handleError(err));
 };
